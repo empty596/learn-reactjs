@@ -1,21 +1,34 @@
-import logo from "./logo.svg";
-import "./App.css";
+import React from "react";
+import { NavLink, Redirect, Route, Switch } from "react-router-dom";
+import "./App.scss";
+import SongFeatures from "./features/Song";
+import TodoFeatures from "./features/Todo";
+
+App.propTypes = {};
 
 function App() {
   return (
     <div className='App'>
-      <header className='App-header'>
-        <img src={logo} className='App-logo' alt='logo' />
-        <p>Vinh Le Le</p>
-        <a
-          className='App-link'
-          href='https://reactjs.org'
-          target='_blank'
-          rel='noopener noreferrer'
-        >
-          Learn React
-        </a>
-      </header>
+      Header
+      <p>
+        <NavLink activeClassName='active-todo' to='/todos'>
+          TodoNav
+        </NavLink>
+      </p>
+      <p>
+        <NavLink activeClassName='active-album' to='/albums'>
+          AlbumsNav
+        </NavLink>
+      </p>
+      <Switch>
+        <Redirect from='/home' to='/' exact />
+        <Redirect from='/post-list/:postId' to='/posts/:postId' exact />
+
+        <Route path='/todos' component={TodoFeatures} />
+        <Route exact path='/' component={TodoFeatures} />
+        <Route path='/albums' component={SongFeatures} />
+      </Switch>
+      Footer
     </div>
   );
 }
